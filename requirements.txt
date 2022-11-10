@@ -1,0 +1,5 @@
+echo off
+echo
+cd E:\fuel scraper
+python --version
+python 3 scrape.py
