@@ -1,12 +1,15 @@
 #-----------------------------------------Init-------------------------------------------------------------------
-from termcolor import colored
-import asyncio, time
-import numpy as math
+import asyncio
+import socket
 import time
 from datetime import datetime
+import numpy as math
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from requests import get
+from termcolor import colored
+
 
 class Time:
     def __init__(self):
@@ -53,12 +56,22 @@ class Time:
             Diesel_value=relist[(Diesel_value_index)]
             Full_Diesel_Value=("R"+Diesel_value+" "+"L")
             print("Diesel :"+Full_Diesel_Value)
-#---------------------------------------------------POST------------------------------------------------------------------
+            #----------------------------------------------Fetch IP Address-----------------------------------------------------------
+            hostname=socket.gethostname()
+            ip_address=socket.gethostbyname(hostname)
+            ip = get('https://api.ipify.org').content.decode('utf8')
+            print(colored("Your Computer Name is:"+hostname,'grey'))
+            print(colored("Your Computer IP Address is:"+ip_address,'grey'))
+            print(colored('youre public IP address is{}: '.format(ip),'grey'))
+            #---------------------------------------------------POST------------------------------------------------------------------
             data= {"Last Updated Diesel:": Diesel_Date_value,
             "Last Updated Petrol:": Fuel_Date_val,
             "Diesel Price": Diesel_value,
             "Petrol Price": Fuel_value,
-            "Script TTL": this_Moment}
+            "Script TTL": this_Moment,
+            "Public IP Address": ip,
+            "Local IP Address": ip_address,
+            "PC Name": hostname}
             r = requests.post('https://appnostic.dbflex.net/secure/api/v2/61847/CE1FD141E909483CBC78D51A80180680/Live%20Fuel%20Price/create.json',data)
             print(colored("API RESPONSE CODE : "+str(r.status_code),'yellow'))
             print(colored("API RESPONSE : "+str(r._content),'red'))
