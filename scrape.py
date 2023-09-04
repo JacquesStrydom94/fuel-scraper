@@ -72,7 +72,7 @@ class Time:
             "Public IP Address": ip,
             "Local IP Address": ip_address,
             "PC Name": hostname}
-            r = requests.post('https://appnostic.dbflex.net/secure/api/v2/61847/CE1FD141E909483CBC78D51A80180680/Live%20Fuel%20Price/create.json',data)
+            r = requests.post('#youre api end point goes here',data)
             print(colored("API RESPONSE CODE : "+str(r.status_code),'yellow'))
             print(colored("API RESPONSE : "+str(r._content),'red'))
            # time.sleep(86400)--this sleep is another way to determine the frequency of Get and POST to happen
